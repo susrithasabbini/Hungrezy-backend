@@ -1,0 +1,4 @@
+node_modules
+.env
+files/top_cities.json
+log
