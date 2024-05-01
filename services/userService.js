@@ -5,6 +5,19 @@ import * as Constants from "../constants/userRoleConstants.js";
 
 const TAG = "service.user";
 
+const getUsers = async () => {
+  try {
+    const users = await User.find();
+    return {
+      status: 200,
+      message: "Users fetched successfully",
+      data: users,
+    };
+  } catch (error) {
+    console.error(`${TAG} ERROR in getUsers() => ${error}`);
+  }
+};
+
 const addImageDetails = async (data) => {
   const { imageUrl, imageId, userId } = data;
   if (!imageUrl && !imageId && userId)
@@ -78,6 +91,50 @@ const getUserDetails = async (id) => {
     };
   } catch (error) {
     console.error(`${TAG} ERROR in getUserDetails() => ${error}`);
+  }
+};
+
+const updateUser = async (req) => {
+  const id = req.params.id;
+  console.log(req.body);
+  try {
+    const ObjectId = dbUtils.stringToObjectId(id);
+    const user = await User.findById(ObjectId);
+    if (!user)
+      throw {
+        message: "User not found!",
+        status: 404,
+      };
+
+    const updated = await User.findByIdAndUpdate(ObjectId, req.body, {
+      new: true,
+    });
+    return {
+      status: 200,
+      message: "User updated successfully",
+      data: updated,
+    };
+  } catch (error) {
+    console.error(`${TAG} ERROR in updateUser() => ${error}`);
+  }
+};
+
+const deleteUser = async (id) => {
+  try {
+    const ObjectId = dbUtils.stringToObjectId(id);
+    const user = await User.findById(ObjectId);
+    if (!user)
+      throw {
+        message: "User not found!",
+        status: 404,
+      };
+    await User.findByIdAndDelete(ObjectId);
+    return {
+      status: 200,
+      message: "User deleted successfully",
+    };
+  } catch (error) {
+    console.error(`${TAG} ERROR in deleteUser() => ${error}`);
   }
 };
 
@@ -206,4 +263,7 @@ export {
   getUserDetails,
   updateCustomerStatus,
   getCustomerCount,
+  getUsers,
+  updateUser,
+  deleteUser,
 };

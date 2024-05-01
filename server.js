@@ -14,6 +14,8 @@ import helmet from "helmet";
 import rfs from "rotating-file-stream";
 import http from "http";
 import { Server } from "socket.io";
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUI from "swagger-ui-express";
 
 const __filename = new URL(import.meta.url).pathname;
 // Use import.meta.url to derive __dirname
@@ -58,6 +60,8 @@ app.use(bodyParser.json());
 app.use(morgan("dev"));
 app.use(cookieParser());
 app.use(helmet());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Set up static files middleware
 app.use(express.static(path.join(__dirname, "public")));
@@ -70,6 +74,40 @@ app.use("/api", initRoutes());
 
 // ERROR HANDLER MIDDLEWARE (Last middleware to use)
 app.use(ErrorHandler);
+
+const options = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Hungrezy API",
+      version: "1.0.0",
+      description: "Hungrezy API Documentation",
+    },
+    servers: [
+      {
+        url: "http://localhost:3000",
+      },
+    ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
+  },
+  apis: ["./routes/*.js", "./server.js"],
+};
+
+const swaggerspec = swaggerJSDoc(options);
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerspec));
 
 const port = PORT || 3000;
 

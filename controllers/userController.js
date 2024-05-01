@@ -2,6 +2,20 @@ import { userService, imageUploadService } from "../services/index.js";
 
 const TAG = "controller.user";
 
+const getUsers = async (req, res, next) => {
+  try {
+    const result = await userService.getUsers();
+    res.status(result.status).send({
+      status: result.status,
+      message: result.message,
+      data: result.data,
+    });
+  } catch (error) {
+    console.error(`${TAG} ERROR in getUsers() => ${error.message}`);
+    next(error);
+  }
+};
+
 const uploadImage = async (req, res, next) => {
   try {
     const result = await imageUploadService.uploadImage(req);
@@ -50,6 +64,34 @@ const getUserDetails = async (req, res, next) => {
   }
 };
 
+const updateUser = async (req, res, next) => {
+  try {
+    const result = await userService.updateUser(req);
+    res.status(result.status).send({
+      status: result.status,
+      message: result.message,
+      data: result.data,
+    });
+  } catch (error) {
+    console.error(`${TAG} ERROR in updateUser() => ${error.message}`);
+    next(error);
+  }
+};
+
+const deleteUser = async (req, res, next) => {
+  try {
+    const result = await userService.deleteUser(req.params.id);
+    res.status(result.status).send({
+      status: result.status,
+      message: result.message,
+      data: result.data,
+    });
+  } catch (error) {
+    console.error(`${TAG} ERROR in deleteUser() => ${error.message}`);
+    next(error);
+  }
+}
+
 const updateCustomerStatus = async (req, res, next) => {
   try {
     const result = await userService.updateCustomerStatus(req);
@@ -78,4 +120,13 @@ const getCustomerCount = async (req, res, next) => {
   }
 };
 
-export { uploadImage, getAllUsers, getUserDetails, updateCustomerStatus, getCustomerCount };
+export {
+  uploadImage,
+  getAllUsers,
+  getUserDetails,
+  updateCustomerStatus,
+  getCustomerCount,
+  getUsers,
+  updateUser,
+  deleteUser,
+};

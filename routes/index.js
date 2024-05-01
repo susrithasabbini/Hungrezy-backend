@@ -14,12 +14,12 @@ const initRoutes = () => {
   router.use("/auth", initAuthRoutes());
   router.use("/restaurant", initRestaurantRoutes());
   router.use("/user", initUserRoutes());
-  router.use("/admin", initAdminRoutes());
   router.use("/menu", initMenuRoutes());
-  router.use("/order",initOrderRoutes());
-  router.use("/contact", initContactRoutes())
+  router.use("/order", initOrderRoutes());
+  router.use("/contact", initContactRoutes());
   router.use("/review", initReviewRoutes());
-  
+  router.use("/admin", initAdminRoutes());
+
   return router;
 };
 
