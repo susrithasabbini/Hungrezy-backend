@@ -85,7 +85,7 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:3000",
+        url: "https://hungrezy-backend-f2ku.onrender.com",
       },
     ],
     components: {
