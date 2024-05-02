@@ -1,5 +1,5 @@
 FROM node:alpine
-WORKDIR /usr/src/app
+WORKDIR /github/workspace
 COPY package*.json .
 RUN npm ci
 COPY . .
