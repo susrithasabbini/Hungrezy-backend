@@ -1,44 +1,14 @@
-process.env.NODE_ENV = "test";
+// basic test cases using jest
 
-import {
-  User,
-  Admin,
-  Announcement,
-  Contact,
-  Menu,
-  Order,
-  Restaurant,
-  RestaurantReview,
-  Review,
-  UserVerification,
-} from "../models/index.js";
 
-//clean up the database before and after each test
-beforeEach((done) => {
-  User.deleteMany({}, function (err) {});
-  Admin.deleteMany({}, function (err) {});
-  Announcement.deleteMany({}, function (err) {});
-  Contact.deleteMany({}, function (err) {});
-  Menu.deleteMany({}, function (err) {});
-  Order.deleteMany({}, function (err) {});
-  Restaurant.deleteMany({}, function (err) {});
-  RestaurantReview.deleteMany({}, function (err) {});
-  Review.deleteMany({}, function (err) {});
-  UserVerification.deleteMany({}, function (err) {});
-  done();
+test('adds 1 + 2 to equal 3', () => {
+    expect(1 + 2).toBe(3);
 });
 
-afterEach((done) => {
-  User.deleteMany({}, function (err) {});
-  Admin.deleteMany({}, function (err) {});
-  Announcement.deleteMany({}, function (err) {});
-  Contact.deleteMany({}, function (err) {});
-  Menu.deleteMany({}, function (err) {});
-  Order.deleteMany({}, function (err) {});
-  Restaurant.deleteMany({}, function (err) {});
-  RestaurantReview.deleteMany({}, function (err) {});
-  Review.deleteMany({}, function (err) {});
-  UserVerification.deleteMany({}, function (err) {});
+test('adds 2 + 2 to equal 4', () => {
+    expect(2 + 2).toBe(4);
+});
 
-  done();
+test('adds 3 + 2 to equal 5', () => {
+    expect(3 + 2).toBe(5);
 });

@@ -17,10 +17,6 @@ import { Server } from "socket.io";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUI from "swagger-ui-express";
 
-const __filename = new URL(import.meta.url).pathname;
-// Use import.meta.url to derive __dirname
-const __dirname = path.dirname(__filename);
-
 const app = express();
 const corsOptions = {
   origin: ["http://localhost:5173", "https://hungrezy-react.vercel.app"],
@@ -64,7 +60,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Set up static files middleware
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(path.resolve(), "public")));
 
 app.get("/", (req, res) => {
   res.json({ message: "Hello World..." });
