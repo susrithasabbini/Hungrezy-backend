@@ -56,6 +56,5 @@ jobs:
       - name: Deploy to production
         uses: susrithasabbini/hungrezy-backend@v1.0.0
         with:
-          service-id: ${{ secrets.SERVICE_ID }} # Can be found as part of the Deploy Hook
-          api-key: ${{ secrets.RENDER_API_KEY }} # Create your API key in Render Dashboard > Account Settings
-          
+          entryPoint: ${{ secrets.SERVICE_ID }} # Assuming this is the correct input for service ID
+          args: ${{ secrets.RENDER_API_KEY }} # Assuming this is the correct input for API key
